@@ -51,36 +51,43 @@ public class LoginController {
 		if (loginUser != null) {
 
 			System.out.print("ISLOGIN=TRUE");
+			mv.addObject("loginForm", loginForm);
+			mv.setViewName("top");
 		} else {
-			loginForm = new LoginForm();
+			mv.addObject("loginForm", loginForm);
+			mv.addObject("errorMsg", "ログインに失敗しました。");
 			System.out.print("ISLOGIN=FALSE");
+			mv.setViewName("login");
 		}
-		mv.addObject("loginForm", loginForm);
-		mv.setViewName("top");
+
 		return mv;
 	}
 
 	private User doLogin(String username, String password) {
 		UsersDao dao = new UsersDao();
 		List<User> userlist = dao.select(username);
-		User ret = new User();
-		for (User user : userlist) {
-			System.out.println("DBPassword::"+user.getPassword());
-			try {
-				 byte[] cipher_byte;
-				MessageDigest md = MessageDigest.getInstance("SHA-256");
-				 md.update(password.getBytes());
-                 cipher_byte = md.digest();
-                 StringBuilder sb = new StringBuilder(2 * cipher_byte.length);
-                 for(byte b: cipher_byte) {
-                         sb.append(String.format("%02x", b&0xff) );
-                 }
-                 System.out.println( sb );
-			} catch (NoSuchAlgorithmException e) {
-				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
+		User ret = null;
+		if (userlist != null) {
+			for (User user : userlist) {
+				ret = new User();
+				System.out.println("DBPassword::" + user.getPassword());
+				try {
+					byte[] cipher_byte;
+					MessageDigest md = MessageDigest.getInstance("SHA-256");
+					md.update(password.getBytes());
+					cipher_byte = md.digest();
+					StringBuilder sb = new StringBuilder(2 * cipher_byte.length);
+					for (byte b : cipher_byte) {
+						sb.append(String.format("%02x", b & 0xff));
+					}
+					System.out.println(sb);
+				} catch (NoSuchAlgorithmException e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+				}
 			}
 		}
+
 		return ret;
 	}
 }
