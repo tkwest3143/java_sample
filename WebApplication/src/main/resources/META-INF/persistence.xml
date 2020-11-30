@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<!-- ユニット名 -->
+	<persistence-unit name="web01">
+	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+	<class>com.lmproject.application.database.entity.Chat</class>
+	<class>com.lmproject.application.database.entity.RoomUserRelation</class>
+	<class>com.lmproject.application.database.entity.Room</class>
+	<class>com.lmproject.application.database.entity.UserRelation</class>
+	<class>com.lmproject.application.database.entity.User</class>
+	<class>com.lmproject.application.database.entity.UserPK</class>
+		<!-- 使用するエンティティが定義されているクラスを列挙しています。 -->
+	<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<!-- hibernateで扱うDBの設定です -->
+		<properties>
+			<!-- ドライバの指定 -->
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <!-- 接続するサーバとDB名 -->
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/GODB"/>
+            <!-- ユーザ名 -->
+            <property name="hibernate.connection.username" value="postgres"/>
+            <!-- パスワード -->
+            <property name="hibernate.connection.password" value="Aa13572468"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+        </properties>
+	</persistence-unit>
+
+
+</persistence>

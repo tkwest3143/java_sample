@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="layout">
+<head>
+<meta name="keywords" content="header" />
+  <meta name="description" content="header" />
+</head>
+<body>
+<div class="header container" layout:fragment="header">
+	<div class="row">
+	<div class="header-title col-6">
+	LIFEMANAGEMENT</div>
+
+	<div class="col-6">
+	<div class="icon toggle  d-lg-none float-right">
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+	</div>
+	</div>
+
+
+<div id="loginname" ></div>
+	<div class="menuitem-conteiner d-lg-none float-right">
+		<nav class="menulist">
+			<ul>
+				<li><button onclick="location.href='./menu'">Home</button></li>
+				<li><button onclick="location.href='./mypage'">マイページ</button></li>
+				<li><button onclick="location.href='./schedule'">スケジュール</button></li>
+				<li><button onclick="location.href='./record'">記録</button></li>
+			</ul>
+		</nav>
+	</div>
+
+</div>
+	<script>
+		const icons = document.querySelectorAll('.icon');
+		icons.forEach (icon => {
+			icon.addEventListener('click', (event) => {
+				icon.classList.toggle("open");
+			});
+		});
+		$(document).ready(function(){
+			  $('.toggle').click(function(){
+			    $('.menulist').slideToggle();
+			  });
+			});
+	</script>
+
+</body>
+</html>
