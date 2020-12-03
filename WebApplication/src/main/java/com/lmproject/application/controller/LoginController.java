@@ -49,10 +49,11 @@ public class LoginController {
 			System.out.println("NULLEXCEPTION");
 		}
 		if (loginUser != null) {
-
+			ModelAndView modelAndView = new ModelAndView("redirect:/top");
 			System.out.print("ISLOGIN=TRUE");
+			mv = modelAndView;
 			mv.addObject("loginForm", loginForm);
-			mv.setViewName("top");
+
 		} else {
 			mv.addObject("loginForm", loginForm);
 			mv.addObject("errorMsg", "ログインに失敗しました。");

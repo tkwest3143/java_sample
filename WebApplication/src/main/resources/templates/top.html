@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html>
+
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+
+<link rel="stylesheet" th:href="@{/css/form.css}"/>
+<link rel="stylesheet" th:href="@{/lib/bootstrap/bootstrap.min.css}" />
+<title>login</title>
 </head>
 <body>
+<!-- javasctiptファイルリンク -->
+<script type="text/javascript" th:src="@{/lib/jquery/jquery.min.js}" ></script>
+<script type="text/javascript" th:src="@{/lib/bootstrap/bootstrap.min.js}" ></script>
 
+	<div class="container form-area">
+<h1 th:text="${errorMsg}"></h1>
+
+ <div class="form-group col-lg-6">
+ <table class="tbl-01">
+ <thead>
+ <tr>
+ <td>ユーザID</td>
+ <td>ユーザ名</td>
+ <td>メールアドレス</td>
+ </tr>
+ </thead>
+<tr th:each="user : ${userlist}">
+    <td th:text="${user.id.userId}"></td>
+    <td th:text="${user.userName}"></td>
+    <td th:text="${user.mailAddress}"></td>
+</tr>
+</table>
+</div>
+<div class="form-group col-lg-6">
+
+  </div>
+  <div class="col-sm-2">
+  </div>
+</div>
 </body>
 </html>

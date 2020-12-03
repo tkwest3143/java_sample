@@ -6,6 +6,7 @@ package com.lmproject.application.database.dao;
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.lmproject.application.database.entity.User;
 
@@ -42,6 +43,23 @@ public class UsersDao extends CommonDao {
 		if (q.getResultList().size() > 0) {
 			@SuppressWarnings("unchecked")
 			List<User> ret = q.getResultList();
+			return ret;
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * ユーザ名をもとにUser情報を取得します。
+	 * @param username ユーザ名
+	 * @return User情報
+	 */
+	public List<User> getUserLIst() {
+
+		TypedQuery<User> query = getEntityManager().createNamedQuery("User.findAll",User.class);
+
+		if (query.getResultList().size() > 0) {
+			List<User> ret = query.getResultList();
 			return ret;
 		} else {
 			return null;

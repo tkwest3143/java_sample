@@ -19,8 +19,8 @@ public class IndexController {
 	 * @return topページ
 	 */
 	@RequestMapping(value="/", method=RequestMethod.GET)
-    public ModelAndView index(ModelAndView mv) {
-        mv.setViewName("/login");
-        return mv;
+    public String index(ModelAndView mv) {
+
+        return "redirect:/login";
     }
 }
