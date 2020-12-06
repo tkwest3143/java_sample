@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lmproject.application.constants.ViewnameConstant;
 import com.lmproject.application.database.dao.UsersDao;
 import com.lmproject.application.database.entity.User;
 import com.lmproject.application.form.LoginForm;
@@ -32,7 +33,7 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView getLogin(ModelAndView mv) {
 		mv.addObject("loginForm", new LoginForm());
-		mv.setViewName("login");
+		mv.setViewName(ViewnameConstant.LOGIN);
 		return mv;
 	}
 
@@ -58,12 +59,18 @@ public class LoginController {
 			mv.addObject("loginForm", loginForm);
 			mv.addObject("errorMsg", "ログインに失敗しました。");
 			System.out.print("ISLOGIN=FALSE");
-			mv.setViewName("login");
+			mv.setViewName(ViewnameConstant.LOGIN);
 		}
 
 		return mv;
 	}
 
+	/**
+	 *
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	private User doLogin(String username, String password) {
 		UsersDao dao = new UsersDao();
 		List<User> userlist = dao.select(username);

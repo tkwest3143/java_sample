@@ -2,41 +2,48 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 
-<link rel="stylesheet" th:href="@{/css/form.css}"/>
-<link rel="stylesheet" th:href="@{/lib/bootstrap/bootstrap.min.css}" />
-<title>login</title>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<link rel="stylesheet" th:href="@{/viewlib/bootstrap/bootstrap.min.css}" />
+<title>top</title>
 </head>
 <body>
-<!-- javasctiptファイルリンク -->
-<script type="text/javascript" th:src="@{/lib/jquery/jquery.min.js}" ></script>
-<script type="text/javascript" th:src="@{/lib/bootstrap/bootstrap.min.js}" ></script>
+	<!-- javasctiptファイルリンク -->
+	<script type="text/javascript"
+		th:src="@{/viewlib/jquery/jquery.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/viewlib/bootstrap/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/javascript/top.js}"></script>
 
 	<div class="container form-area">
-<h1 th:text="${errorMsg}"></h1>
+		<form action="#" th:action="@{/top}" th:object="${userForm}" id="form"
+			method="post">
+			<h1 th:text="${errorMsg}"></h1>
 
- <div class="form-group col-lg-6">
- <table class="tbl-01">
- <thead>
- <tr>
- <td>ユーザID</td>
- <td>ユーザ名</td>
- <td>メールアドレス</td>
- </tr>
- </thead>
-<tr th:each="user : ${userlist}">
-    <td th:text="${user.id.userId}"></td>
-    <td th:text="${user.userName}"></td>
-    <td th:text="${user.mailAddress}"></td>
-</tr>
-</table>
-</div>
-<div class="form-group col-lg-6">
-
-  </div>
-  <div class="col-sm-2">
-  </div>
-</div>
+			<div class="form-group col-lg-6">
+				<table class="table usertable">
+					<thead>
+						<tr>
+							<th scope="col">ユーザID</th>
+							<th scope="col">ユーザ名</th>
+							<th scope="col">メールアドレス</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user,stat  : ${userlist}"
+							th:id="'user_'+${stat.index}" onclick="userlist_click(this)">
+							<td id="userid" th:text="${user.id.userId}"></td>
+							<td th:text="${user.userName}"></td>
+							<td th:text="${user.mailAddress}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="hidden" id="clickuser" th:field="*{userId}" />
+			</div>
+			<div class="form-group col-lg-6"></div>
+			<div class="col-sm-2"></div>
+		</form>
+	</div>
 </body>
 </html>

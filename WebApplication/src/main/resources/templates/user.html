@@ -6,7 +6,7 @@
 
 <link rel="stylesheet" th:href="@{/css/style.css}" />
 <link rel="stylesheet" th:href="@{/viewlib/bootstrap/bootstrap.min.css}" />
-<title>login</title>
+<title>user</title>
 </head>
 <body>
 	<!-- javasctiptファイルリンク -->
@@ -16,22 +16,31 @@
 		th:src="@{/viewlib/bootstrap/bootstrap.min.js}"></script>
 
 	<div class="container form-area">
-		<h1>Material Design Form</h1>
-		<form method="post" th:object="${loginForm}">
+
+		<form method="post" action="#" th:action="@{/user}"
+			th:object="${user}">
+			<h1>ユーザ変更</h1>
 			<h1 th:text="${errorMsg}"></h1>
 
 			<div class="form-group col-lg-6">
-				<label>Name</label> <input type="text" th:field="*{loginname}"
+				<label>userid</label> <span th:text="*{userId}"></span>
+			</div>
+			<div class="form-group col-lg-6">
+				<label>username</label> <input type="text" th:field="*{username}"
 					class="form-control" required />
 			</div>
 			<div class="form-group col-lg-6">
-				<label>Password</label> <input type="password"
-					th:field="*{password}" class="form-control" required />
+				<label>mailaddress</label> <input type="text"
+					th:field="*{mailAddress}" class="form-control" required />
 			</div>
 			<div class="col-sm-2">
-				<button type="submit" class="form-btn">ログイン</button>
+				<button type="submit" class="form-btn">ユーザ情報変更</button>
 			</div>
+			<input type="hidden" id="clickuser" th:field="*{userId}" />
 		</form>
+		<div class="col-sm-2">
+				<a class="form-btn" href="/top">戻る</a>
+			</div>
 	</div>
 </body>
 </html>

@@ -50,6 +50,26 @@ public class UsersDao extends CommonDao {
 	}
 
 	/**
+	 * ユーザIDをもとにUser情報を取得します。
+	 * @param userid ユーザID
+	 * @return User情報
+	 */
+	public User findByUserid(String userid) {
+		String query = "select u from User u "
+				+ "where u.id.userId=:userId";
+
+		Query q = getEntityManager().createQuery(query)
+				.setParameter("userId", userid);
+
+		if (q.getResultList().size() > 0) {
+			User ret = (User) q.getSingleResult();
+			return ret;
+		} else {
+			return null;
+		}
+	}
+
+	/**
 	 * ユーザ名をもとにUser情報を取得します。
 	 * @param username ユーザ名
 	 * @return User情報
@@ -64,6 +84,18 @@ public class UsersDao extends CommonDao {
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * @param user
+	 */
+	public void update(User user) {
+		begin();
+		User upUser=getEntityManager().find(User.class, user.getId());
+		upUser.setMailAddress(user.getMailAddress());
+		upUser.setUserName(user.getUserName());
+		getEntityManager().persist(upUser);
+		commit();
 	}
 
 }

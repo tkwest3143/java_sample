@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lmproject.application.constants.ViewnameConstant;
 import com.lmproject.application.database.dao.UsersDao;
 import com.lmproject.application.database.entity.User;
+import com.lmproject.application.form.UserForm;
 
 /**
  * クラス名：TopController.java<br>
@@ -37,8 +39,34 @@ public class TopController {
 		UsersDao dao = new UsersDao();
 		userlist = dao.getUserLIst();
 		mv.addObject("userlist", userlist);
+		mv.addObject("userForm", new UserForm());
 
-		mv.setViewName("top");
+		mv.setViewName(ViewnameConstant.TOP);
+
+		return mv;
+	}
+
+	/**
+	 * @param mv
+	 * @param userform user情報
+	 * @return topページ
+	 */
+	@RequestMapping(value = "/top", method = RequestMethod.POST)
+	public ModelAndView postTop(ModelAndView mv,UserForm userform) {
+
+		UsersDao dao = new UsersDao();
+		String userId=userform.getUserId();
+		User user = dao.findByUserid(userId);
+
+		System.out.print(userform.getUserId());
+
+		userform.setUserId(userId);
+		userform.setMailAddress(user.getMailAddress());
+		userform.setUsername(user.getUserName());
+
+		mv.addObject("user", userform);
+
+		mv.setViewName(ViewnameConstant.USER);
 
 		return mv;
 	}
